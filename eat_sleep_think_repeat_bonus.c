@@ -23,7 +23,6 @@ void	*trap(void *arg)
 	sem_wait(data->trap);
 	sem_post(data->trap);
 	exit(0);
-	return (NULL);
 }
 
 void	*eat(t_philo *p, t_shared *data)
@@ -45,7 +44,7 @@ void	*eat(t_philo *p, t_shared *data)
 void	*ft_sleep(t_philo *p, t_shared *data)
 {
 	ft_print("is sleeping", p, data);
-	ft_usleep(p->data->time_sleep);
+	ft_usleep(data->time_sleep);
 	return (think(p, data));
 }
 
@@ -68,19 +67,16 @@ void	*check_death(void *arg)
 	data = p->data;
 	while (1)
 	{
-		sem_wait(data->counter);
 		if (get_time() - p[i].last_meal > data->time_die){
-			data->death = 1;
 			sem_wait(data->protect);
-			printf("[%05llu] %d is dead\n", get_time() - data->time_birth, i + 1);
-			//sem_post(data->trap);
+			printf("[%05llu] %d died\n", get_time() - data->time_birth, i + 1);
+			data->death = 1;
+			sem_post(data->trap);
 			exit(0);
-			break;
 		}
 		i++;
 		if (data->nbr == i)
 			i = 0;
-		sem_post(data->counter);
 	}
 	return (NULL);
 }

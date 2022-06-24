@@ -33,8 +33,6 @@ t_shared	init_data(char **av)
 	data.protect = sem_open("protect", O_CREAT, 0660, 1);
 	sem_unlink("trap");
 	data.trap = sem_open("trap", O_CREAT, 0660, 0);
-	sem_unlink("counter");
-	data.counter = sem_open("counter", O_CREAT, 0660,1);
 	data.pid = (int *)malloc(data.nbr * sizeof(int));
 	if (!data.pid)
 		return (data);

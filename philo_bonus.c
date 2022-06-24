@@ -23,7 +23,7 @@ void	*routine(void *arg)
 
 	p = (t_philo *)arg;
 	data = p->data;
-	return (eat(p, data));
+	eat(p, data);
 	return (NULL);
 }
 
@@ -33,7 +33,6 @@ int main(int ac, char **av)
 	t_shared	data;
 	int			i;
 	pthread_t	th[2];
-	sem_t		*sem;
 	int			*id;
 	
 	if (!parsing(ac))
@@ -49,8 +48,9 @@ int main(int ac, char **av)
         if (id[i] == 0)
         {
 			pthread_create(&th[0], NULL, &check_death, p);
-			//pthread_create(&th[1], NULL, &trap, p);
+			pthread_create(&th[1], NULL, &trap, p);
 			routine(&p[i]);
+			exit (0);
         }
         i++;
     }

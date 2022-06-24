@@ -31,7 +31,6 @@ typedef struct s_shared
 	int				death;
 	sem_t			*semaphore;
 	sem_t			*protect;
-	sem_t			*counter;
 	sem_t			*trap;
 	pid_t				*pid;
 }	t_shared;
