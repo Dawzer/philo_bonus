@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:39:11 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/20 14:43:17 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 18:18:41 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,16 @@ void	ft_usleep(int time)
 	current_time = get_time();
 	while (get_time() - current_time < time)
 		;
+}
+
+void	ft_print(char *str, t_philo *p, t_shared *data)
+{
+	if (data->death)
+	{
+		printf("[%05llu] %d is dead\n", get_time() - data->time_birth, p->index + 1);
+		exit(0);
+	}
+	sem_wait(p->print);
+	printf("[%05llu] %d %s\n", get_time() - p->data->time_birth, p->index + 1, str);
+	sem_post(p->print);
 }

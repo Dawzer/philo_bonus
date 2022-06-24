@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:39:03 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/24 11:55:20 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 18:59:47 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_philo	*philo_init(t_philo *p, t_shared *data, int ac)
 		p[i].check_time_must_eat = 0;
 		p[i].t = NULL;
 		p[i].pid_private = 0;
+		unlink("print");
+		p[i].print = sem_open("print", O_CREAT, 0660, 1);
 		i++;
 	}
 	return (p);

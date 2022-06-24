@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:04:19 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/24 12:14:32 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 19:35:08 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,7 @@ void	*routine(void *arg)
 	return (eat(p, data));
 	return (NULL);
 }
-void	routine_2(sem_t **sem)
-{
-	sem_wait(*sem);
-	printf("Entred\n");
-	sleep(2);
-	printf("Just exiting\n");
-	sem_post(*sem);
-}
+
 int main(int ac, char **av)
 {
 	t_philo		*p;
@@ -42,9 +35,7 @@ int main(int ac, char **av)
 	pthread_t	th[2];
 	sem_t		*sem;
 	int			*id;
-	int	status;
 	
-	printf("pid : %d\n",getpid());
 	if (!parsing(ac))
 		return (puterr());
 	p = NULL;
@@ -66,7 +57,7 @@ int main(int ac, char **av)
 	i = 0;
 	while (i < data.nbr)
 	{
-		waitpid(id[i], &status, 0);
+		waitpid(id[i], NULL, 0);
 		i++;
 	}
 }

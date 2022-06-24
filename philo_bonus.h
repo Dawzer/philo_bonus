@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:04:22 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/24 10:08:57 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 17:40:27 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ typedef struct s_shared
 	int				death;
 	sem_t			*semaphore;
 	sem_t			*protect;
-	sem_t			*trap;
 	sem_t			*counter;
+	sem_t			*trap;
 	pid_t				*pid;
 }	t_shared;
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	int 			pid_private;
 	int				check_time_must_eat;
 	pthread_t		t;
+	sem_t			*print;
 	t_shared		*data;
 }	t_philo;
 
@@ -51,6 +52,7 @@ int			ft_strcmp(const char *s1, const char *s2);
 int			ft_atoi(const char *str);
 void		ft_usleep(int time);
 int			ft_isdigit(int c);
+void		ft_print(char *str, t_philo *p, t_shared *data);
 int			parsing(int ac);
 int			puterr(void);
 t_philo		*philo_init(t_philo *p, t_shared *data, int ac);
