@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 14:39:03 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/23 14:04:58 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 11:55:20 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,18 @@ t_shared	init_data(char **av)
 	if (av[5])
 		data.time_must_eat = ft_atoi(av[5]);
 	data.time_birth = get_time();
+	data.death = 0;
 	sem_unlink("fork");
 	data.semaphore = sem_open("fork", O_CREAT, 0660, data.nbr);
+	sem_unlink("protect");
+	data.protect = sem_open("protect", O_CREAT, 0660, 1);
+	sem_unlink("trap");
+	data.trap = sem_open("trap", O_CREAT, 0660, 0);
+	sem_unlink("counter");
+	data.counter = sem_open("counter", O_CREAT, 0660,1);
 	data.pid = (int *)malloc(data.nbr * sizeof(int));
 	if (!data.pid)
 		return (data);
-	//i = -1;
-	//while (i++ < data.nbr)
-	//	data.pid[i] = i;
 	data.full = 0;
 	return (data);
 }
@@ -58,7 +62,6 @@ t_philo	*philo_init(t_philo *p, t_shared *data, int ac)
 		p[i].check_time_must_eat = 0;
 		p[i].t = NULL;
 		p[i].pid_private = 0;
-		p[i].death = 0;
 		i++;
 	}
 	return (p);

@@ -6,7 +6,7 @@
 /*   By: babkar <babkar@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/18 14:04:22 by babkar            #+#    #+#             */
-/*   Updated: 2022/06/22 17:19:14 by babkar           ###   ########.fr       */
+/*   Updated: 2022/06/24 10:08:57 by babkar           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ typedef struct s_shared
 	int				time_must_eat;
 	long long		time_birth;
 	int				full;
+	int				death;
 	sem_t			*semaphore;
+	sem_t			*protect;
+	sem_t			*trap;
+	sem_t			*counter;
 	pid_t				*pid;
 }	t_shared;
 
@@ -38,7 +42,6 @@ typedef struct s_philo
 	long long		last_meal;
 	int 			pid_private;
 	int				check_time_must_eat;
-	int				death;
 	pthread_t		t;
 	t_shared		*data;
 }	t_philo;
@@ -58,4 +61,5 @@ void		*think(t_philo *p, t_shared *data);
 void		*ft_sleep(t_philo *p, t_shared *data);
 void		*check_time_must_eat(void	*arg);
 void		*check_death(void *arg);
+void	*trap(void *arg);
 #endif
